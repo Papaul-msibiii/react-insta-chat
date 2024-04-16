@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AuthState } from '../../utils/api/user/user.type'
-import { AppLocalStorage, AppStorage } from '../../utils/storage'
+import { AuthState } from '../../../example/src/utils/api/user/user.type'
+import { AppLocalStorage, AppStorage } from '../../../example/src/utils/storage'
 
 const initialState = AppStorage.getItem<AuthState>('user', {
   user: undefined,

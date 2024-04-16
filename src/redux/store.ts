@@ -11,10 +11,11 @@ import {
   //   PURGE,
   //   REGISTER
 } from 'redux-persist'
-import { UserApi } from '../utils/api/user/user.api'
-import { Env, currentEnv } from '../utils/http'
-import { AuthApi } from '../utils/api/auth/auth.api'
-import { MessagerieApi } from '../utils/api/messagerie/messagerie.api'
+import { UserApi } from '../../example/src/utils/api/user/user.api'
+import { Env, currentEnv } from '../../example/src/utils/http'
+import { AuthApi } from '../../example/src/utils/api/auth/auth.api'
+import { MessagerieApi } from '../../example/src/utils/api/messagerie/messagerie.api'
+import { MedecinApi } from '../../example/src/utils/api/medecin/medecin.api'
 const persistConfig = {
   key: 'root',
   storage: storage,
@@ -22,7 +23,8 @@ const persistConfig = {
     `${UserSlice.name}`,
     `${UserApi.reducerPath}`,
     `${AuthApi.reducerPath}`,
-    `${MessagerieApi.reducerPath}`
+    `${MessagerieApi.reducerPath}`,
+    `${MedecinApi.reducerPath}`
   ]
 }
 
@@ -30,17 +32,19 @@ export const rootReducers = combineReducers({
   [AuthApi.reducerPath]: AuthApi.reducer,
   [UserSlice.name]: UserSlice.reducer,
   [UserApi.reducerPath]: UserApi.reducer,
-  [MessagerieApi.reducerPath]: MessagerieApi.reducer
+  [MessagerieApi.reducerPath]: MessagerieApi.reducer,
+  [MedecinApi.reducerPath]: MedecinApi.reducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducers)
 
-const store = configureStore({
+const store: any = configureStore({
   reducer: {
     [AuthApi.reducerPath]: AuthApi.reducer,
     [UserSlice.name]: UserSlice.reducer,
     [UserApi.reducerPath]: UserApi.reducer,
     [MessagerieApi.reducerPath]: MessagerieApi.reducer,
+    [MedecinApi.reducerPath]: MedecinApi.reducer,
     persistedReducer
   },
   devTools: Env === currentEnv
@@ -52,7 +56,8 @@ const store = configureStore({
   //     }),
   //     AuthApi.middleware,
   //     UserApi.middleware,
-  //     MessagerieApi.middleware
+  //     MessagerieApi.middleware,
+  //     MedecinApi.middleware,
   //   ]
 })
 
