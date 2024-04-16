@@ -1,10 +1,10 @@
 {
-  "name": "volkeno-react-messenger",
+  "name": "react-insta-chat",
   "version": "1.0.0",
   "description": "Made with create-react-library",
   "author": "Papaul-msibiii",
   "license": "MIT",
-  "repository": "Papaul-msibiii/volkeno-react-messenger",
+  "repository": "Papaul-msibiii/react-insta-chat",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",

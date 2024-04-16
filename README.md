@@ -1,13 +1,13 @@
-# volkeno-react-messenger
+# react-insta-chat
 
 > Made with create-react-library
 
-[![NPM](https://img.shields.io/npm/v/volkeno-react-messenger.svg)](https://www.npmjs.com/package/volkeno-react-messenger) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/react-insta-chat.svg)](https://www.npmjs.com/package/react-insta-chat) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save volkeno-react-messenger
+npm install --save react-insta-chat
 ```
 
 ## Usage
@@ -15,8 +15,8 @@ npm install --save volkeno-react-messenger
 ```tsx
 import React, { Component } from 'react'
 
-import MyComponent from 'volkeno-react-messenger'
-import 'volkeno-react-messenger/dist/index.css'
+import MyComponent from 'react-insta-chat'
+import 'react-insta-chat/dist/index.css'
 
 class Example extends Component {
   render() {
