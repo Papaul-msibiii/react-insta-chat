@@ -20,7 +20,6 @@ import { BsCheck2All } from 'react-icons/bs'
 import { FiSearch } from 'react-icons/fi'
 import { ListGroup } from 'react-bootstrap'
 import { getName } from './utils/Utils'
-import { io } from 'socket.io-client'
 
 const ReactInstaChat = ({
   user,
@@ -28,11 +27,8 @@ const ReactInstaChat = ({
   conversationsUser,
   ApiBaseUrl,
   userList,
-  socketUrl
+  socket
 }: any) => {
-  const socket = io(socketUrl)
-  console.log('user mod', user)
-  console.log('token mod', token)
   const [showProfil, setShowProfil] = React.useState(true)
   const [modalNewChat, setModalNewChat] = React.useState<boolean>(false)
   const [listUser, setListUser] = React.useState(null)
@@ -212,7 +208,7 @@ const ReactInstaChat = ({
                 filteredConversationList?.map((item: any) => (
                   <ListGroup.Item
                     as='li'
-                    className={`${styles.listGroupItem} ${
+                    className={`btn ${styles.listGroupItem} ${
                       styles.listGroupItemAction
                     } ${item?.id === conversationActive?.id && 'active'}`}
                     aria-current='true'
@@ -661,7 +657,7 @@ const ReactInstaChat = ({
 }
 
 ReactInstaChat.propTypes = {
-  socketUrl: PropTypes.any, // Socket connection (optional)
+  socket: PropTypes.any, // Socket connection (optional)
   user: PropTypes.any, // User data (optional)
   token: PropTypes.any, // Authentication token (optional)
   ApiBaseUrl: PropTypes.any, // Authentication token (optional)
