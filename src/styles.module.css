@@ -19,13 +19,18 @@
   font-size: 26px;
 }
 .yadMessagerieCustomInputSearch,
-.yadMessagerieCustomInputAddon {
+.yadMessagerieCustomInputAddon,
+.yadMessagerieCustomInputSearch:hover,
+.yadMessagerieCustomInputSearch:active,
+.yadMessagerieCustomInputSearch:focus {
   border-radius: 10px;
-  background: #f8f8fb;
+  background-color: #f8f8fb;
   height: 48px;
   border: none;
   display: flex;
   align-items: center;
+  outline: none;
+  border-color: transparent
 }
 .yadMessagerieCustomInputSearch::placeholder {
   color: #767278;
@@ -647,7 +652,7 @@
   line-height: 12px;
   letter-spacing: 0.01em;
   color: rgba(37, 39, 51, 0.8);
-  padding: 15px 45px;
+  padding: 15px 45px !important;
   border-top: none;
   border-left: none;
   border-right: none;
@@ -908,7 +913,8 @@
   background: #FFF;
 }
 .blocDetails {
-  height: 80vh;
+  /* height: 80vh; */
+  height: calc(80vh - 120px);
   overflow: auto;
   margin-bottom: 25px;
 }
@@ -920,8 +926,25 @@
   height: 85vh;
   overflow: auto;
 }
+.listGroupItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+.listGroupItem.active,
+.listGroupItemAction .active,
+.listGroupItem:hover,
+.listGroupItem:focus,
+.listGroupItem:active {
+  background-color: #F5F6FD !important;
+  border-color: #F5F6FD;
+  color: #102844;
+  cursor: pointer !important;
+}
 @media (min-width: 1024px) {
   .customContentMessageLeft {
-    height: 97vh;
+    /* height: 97vh; */
+    height: calc(100vh - 120px);
   }
 }

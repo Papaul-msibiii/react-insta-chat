@@ -5,8 +5,7 @@ import { ApiBaseUrl } from '../../http'
 import { QueryUrl } from '../../Utils'
 import { prepareHeaders } from '../user/user.api'
 import { PaginationResults, TypeQuery } from '../user/user.type'
-import { IMessagerie, MessagerieFormData } from './messagerie.type'
-import { IUser } from '../user/user.type'
+import { IMessagerie } from './messagerie.type'
 
 export const MessagerieApi = createApi({
   reducerPath: 'messagerieApi',
