@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-key */
 /* eslint-disable camelcase */
 /* eslint-disable no-unused-expressions */
-/* eslint-disable react/self-closing-comp */
+/* eslint-disable no-unused-vars */
 import axios, { AxiosRequestConfig } from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from './styles.module.css'
@@ -20,15 +18,16 @@ import { BsCheck2All } from 'react-icons/bs'
 import { FiSearch } from 'react-icons/fi'
 import { ListGroup } from 'react-bootstrap'
 import { getName } from './utils/Utils'
-
+const socketIO = require('socket.io-client')
 const ReactInstaChat = ({
   user,
   token,
   conversationsUser,
   ApiBaseUrl,
   userList,
-  socket
+  socketUrl
 }: any) => {
+  const socket = socketIO.connect(socketUrl)
   const [showProfil, setShowProfil] = React.useState(true)
   const [modalNewChat, setModalNewChat] = React.useState<boolean>(false)
   const [listUser, setListUser] = React.useState(null)
@@ -68,22 +67,15 @@ const ReactInstaChat = ({
         }
       }
       try {
-        const response = await axios.post(
-          ApiBaseUrl + '/api/messages/',
-          data,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          } as AxiosRequestConfig
-          // config
-        )
-        // setMessagePosted(true)
+        const response = await axios.post(ApiBaseUrl + '/api/messages/', data, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        } as AxiosRequestConfig)
         setConversationActive(response?.data?.conversation)
         setMessages(response?.data?.conversation?.messages)
         socket.emit(`'message'`, response?.data)
         socket.emit('typing', ``)
-        console.log('ok socket')
       } catch (error) {
         console.error(`Error: ${error}`)
       }
@@ -91,20 +83,7 @@ const ReactInstaChat = ({
     }
   }
 
-  React.useEffect(() => {
-    const handleMessageResponse = (data: any) => {
-      if ([data?.sender, data?.receiver].includes(user?.id)) {
-        // setFetchData(true)
-      }
-    }
-
-    socket.on('messageResponse', handleMessageResponse)
-
-    return () => {
-      socket.off('messageResponse', handleMessageResponse)
-    }
-  }, [])
-
+  socket.emit('message', { content: 'Hello, world!' })
   // const handleTyping = () => console.log('typing')
   const handleTyping = () =>
     socket.emit('typing', `${getName(user)} est en train d'écrire`)
@@ -119,6 +98,8 @@ const ReactInstaChat = ({
       setTypingStatus(data)
     })
   }, [socket])
+
+  console.log('TypingStatus', typingStatus)
 
   function openModalNewChat(e: any) {
     e.preventDefault()
@@ -143,9 +124,8 @@ const ReactInstaChat = ({
       .toLowerCase()
       .includes(searchConv.toLowerCase())
   )
+  console.log('socket socket', socket)
   return (
-    // <div className='dashbord-admin-component'>
-    // <div className='container dash-admin-page-content-container mb-3 py-2'>
     <div className='mb-3 p-2'>
       <div className='row'>
         <div className='col-lg-4 col-left-messagerie d-flex mb-3'>
@@ -606,7 +586,7 @@ const ReactInstaChat = ({
                         <div className={styles.inputContainer}>
                           <div className={styles.containerDisplayInputMessage}>
                             <div className='share'>
-                              <i className='fa-solid fa-link img-icon-chat'></i>
+                              <i className='fa-solid fa-link img-icon-chat' />
                             </div>
                             <div className='inp w-100'>
                               <textarea
@@ -616,7 +596,7 @@ const ReactInstaChat = ({
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
                                 onKeyDown={handleTyping}
-                              ></textarea>
+                              />
                             </div>
                           </div>
                           {/* <div className='d-flex gap-2'>
@@ -636,7 +616,7 @@ const ReactInstaChat = ({
                       </div>
                       <div className={styles.btnContainer}>
                         <button type='submit'>
-                          <i className='fa-solid fa-paper-plane'></i>
+                          <i className='fa-solid fa-paper-plane' />
                         </button>
                       </div>
                     </div>
@@ -645,19 +625,16 @@ const ReactInstaChat = ({
               </div>
             </div>
           ) : (
-            <div
-              className={`${styles.dtailsMessagesTabsComponent} w-100`}
-            ></div>
+            <div className={`${styles.dtailsMessagesTabsComponent} w-100`} />
           )}
         </div>
       </div>
     </div>
-    // </div>
   )
 }
 
 ReactInstaChat.propTypes = {
-  socket: PropTypes.any, // Socket connection (optional)
+  socketUrl: PropTypes.any, // Socket connection (optional)
   user: PropTypes.any, // User data (optional)
   token: PropTypes.any, // Authentication token (optional)
   ApiBaseUrl: PropTypes.any, // Authentication token (optional)

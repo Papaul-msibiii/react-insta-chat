@@ -1,14 +1,13 @@
 import React from 'react'
 import ReactInstaChat from 'volkeno-react-messenger'
 import 'volkeno-react-messenger/dist/index.css'
-import { io } from 'socket.io-client'
+const SOCKET_URL = '164.92.136.142:4026'
 
 const App = () => {
-  const SocketUrl = ''
-  const socket = io(SocketUrl)
+
   return (
     <ReactInstaChat
-      socket={socket}
+      socketUrl={SOCKET_URL}
       user={{}}
       token={''}
       conversationsUser={[]}
